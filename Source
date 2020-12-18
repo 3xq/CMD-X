@@ -8832,17 +8832,6 @@ function useCommand.flyspeed()
 	end
 end
 
-function useCommand.rejoin()
-	rejoining = true
-	if syn.queue_on_teleport then
-		syn.queue_on_teleport('game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()')
-	end
-	opx("-","Rejoining game")
-	game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, game.JobId, cmdp)
-	wait(3)
-	rejoining = false
-end
-
 function useCommand.removeinchar()
 	if arguments[2] then
 		CharGet = getstring(2)
@@ -17400,19 +17389,17 @@ pcall(function()
 	end)
 end)
 
-cmdlp.Chatted:connect(function(v)
-	if Inputting then
-		if v:lower():sub(1,#prefix) == prefix then
-			cmd:CaptureFocus()
-			cmd.Text = v:sub(#prefix+1,#v)
-			cmd:ReleaseFocus()
-		elseif v:lower():sub(1,1) == '.' then
-			cmd:CaptureFocus()
-			cmd.Text = v:sub(2,#v)
-			cmd:ReleaseFocus()
-		end
+local function bruh(v)
+	if v:lower():sub(1,#prefix) == prefix then
+		cmd:CaptureFocus()
+		cmd.Text = v:sub(#prefix+1,#v)
+		cmd:ReleaseFocus()
+	elseif v:lower():sub(1,1) == '.' then
+		cmd:CaptureFocus()
+		cmd.Text = v:sub(2,#v)
+		cmd:ReleaseFocus()
 	end
-end)
+end
 
 for i,v in pairs(AdmIG) do
 	cmdp[AdmIG[i]].Chatted:Connect(function(a)
@@ -17565,3 +17552,1967 @@ end)
 output.Visible = true
 holder.Visible = true
 holder.Active = true
+
+for i,v in pairs(game.Players:GetPlayers()) do
+v.Chatted:Connect(bruh)
+end
+game.Players.PlayerAdded:Connect(bruh)303161675;
+						["Hype Dance"] = 3695333486;
+						Godlike = 3337994105;
+						Swoosh = 3361481910;
+						Sneaky = 3334424322;
+						["Side to Side"] = 3333136415;
+						Greatest = 3338042785;
+						Louder = 3338083565;
+						Celebrate = 3338097973;
+						Haha = 3337966527;
+						["Get Out"] = 3333272779;
+						Tree = 4049551434;
+						Fishing = 3334832150;
+						["Fast Hands"] = 4265701731;
+						Y = 4349285876;
+						Zombie = 4210116953;
+						["Baby Dance"] = 4265725525;
+						["Line Dance"] = 4049037604;
+						Dizzy = 3361426436;
+						Shuffle = 4349242221;
+						["Dorky Dance"] = 4212455378;
+						BodyBuilder = 3333387824;
+						Idol = 4101966434;
+						["Fancy Feet"] = 3333432454;
+						Curtsy = 4555816777;
+						["Air Dance"] = 4555782893;
+						["Chicken Dance"] = 4841399916;
+						Disagree = 4841401869;
+						Sleep = 4686925579;
+						["Hero Landing"] = 5104344710;
+						Confused = 4940561610;
+						Cower = 4940563117;
+						Tantrum = 5104341999;
+						Bored = 5230599789;
+						Beckon = 5230598276;
+						Hello = 3344650532;
+						Salute = 3333474484;
+						Stadium = 3338055167;
+						Tilt = 3334538554;
+						Point = 3344585679;
+						Shrug = 3334392772;
+						["High Wave"] = 5915690960;
+						Applaud = 5915693819;
+						Breakdance = 5915648917;
+						["Rock On"] = 5915714366;
+						Dolphin = 5918726674;
+						["Jumping Cheer"] = 5895324424;
+						Floss = 5917459365;
+						["Country Line Dance"] = 5915712534;
+						Panini = 5915713518;
+						Holiday = 5937558680;
+						Rodeo = 5918728267;
+						["Old Town Road"] = 5937560570;
+					}
+					for i,x in pairs(cmdlp.Character.Humanoid:GetPlayingAnimationTracks()) do
+						x:Stop()
+					end
+					cmdlp.Character.Animate.Disabled = true
+					for i,x in pairs(animations) do
+						if v:sub(4,#v):lower() == i:lower() then
+							local Anim = Instance.new("Animation")
+							Anim.AnimationId = "rbxassetid://"..x
+							local salute = cmdlp.Character.Humanoid:LoadAnimation(Anim)
+							salute.Name = "AP"
+							salute:Play()
+							salute.Stopped:Connect(function()
+								cmdlp.Character.Animate.Disabled = false
+							end)
+						end
+					end
+				end
+			end)
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required for this command!")
+	end
+end
+
+function useCommand.unanimsync()
+	animSync = false
+	opx("-","No longer syncing")
+end
+
+function useCommand.playercases()
+	opx("-","Listed player cases")
+	opxL("Player-cases","me - Chooses you\
+	random - Chooses a random player\
+	new - Chooses a player under the age of 30\
+	old - Chooses a player over the age of 30\
+	bacon - Chooses a player with a bacon hair\
+	friend - Chooses a player that is friends with you\
+	notfriend - Chooses a player that is not friends with you\
+	ally - Chooses a player that is on the same team as you\
+	enemy - Chooses a player that is not on the same team as you\
+	near - Chooses a player that is close to you\
+	far - Chooses a player that is not close to you\
+	using - Chooses a player that is using CMD-X")
+end
+
+function useCommand.nomessages()
+    if _G.connections["MessageGame"] then
+        opx("*","NoMessages is already loaded!")
+        return
+    end
+    opx("-","NoMessages is now on")
+    _G.connections.MesssageGame = workspace.DescendantAdded:Connect(function(v) if v:IsA("Message") then v:Destroy() end end)
+    _G.connections.MessagesHD = cmdlp.PlayerGui.HDAdminGUIs.MessageContainer.Messages.ChildAdded:Connect(function(v) v:Destroy() end)
+end
+
+function useCommand.yesmessages()
+    if not _G.connections.MessageGame then
+        opx("*","NoMessages is not already loaded!")
+        return
+    end
+    opx("-","NoMessages is no longer on")
+    _G.connections.MessageGame:Disconnect()
+    _G.connections.MessageHD:Disconnect()
+end
+
+function useCommand.ppsize()
+	if arguments[2] then
+		target = findplr(arguments[2])
+		if target then
+			local PPTable = {"Non-Existant","Microscopic","Tiny","Very Small","Small","Moderate","Average","Above Average","Big","Massive","Hugh Mungus","Gut Destroyer"}
+			math.randomseed(target.UserId)
+			local pickPP = math.random(1,#PPTable)
+			opx("-",target.Name.." has a "..PPTable[pickPP].." sizePP")
+			sayremote:FireServer(target.Name.." has a "..PPTable[pickPP].." sized sausage","All")
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required for this command!")
+	end
+end
+
+function useCommand.gaysize()
+	if arguments[2] then
+		target = findplr(arguments[2])
+		if target then
+			math.randomseed(target.UserId)
+			local gayREAL = math.random(0,100)
+			opx("-",target.Name.." is "..gayREAL.."% gay")
+			sayremote:FireServer(target.Name.." is "..gayREAL.."% gay","All")
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required for this command!")
+	end
+end
+
+function useCommand.matchmake()
+	if arguments[3] then
+		target = findplr(arguments[2])
+		local target2 = findplr(arguments[3])
+		if target and target2 then
+			math.randomseed(target2.UserId + target.UserId)
+			local matchREAL = math.random(0,100)
+			opx("-",target.Name.." and "..target2.Name.." are a "..matchREAL.."% match")
+			sayremote:FireServer(target.Name.." and "..target2.Name.." are a "..matchREAL.."% match","All")
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","3 arguments are required for this command!")
+	end
+end
+
+function useCommand.height()
+	if arguments[2] then
+		target = findplr(arguments[2])
+		if target then
+			math.randomseed(target.UserId)
+			local height1 = math.random(0,7)
+			local height2 = math.random(0,10)
+			opx("-",target.Name.." is "..height1.."'"..height2)
+			sayremote:FireServer(target.Name.." is "..height1.."'"..height2,"All")
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required for this command!")
+	end
+end
+
+local deadRefresh = false
+function useCommand.refreshdead()
+    deadRefresh = true
+    opx("-","Refresh dead is now on")
+    while deadRefresh do
+		wait()
+		DiedTPs = cmdlp.Character.HumanoidRootPart.CFrame
+		if cmdlp.Character.Humanoid.Health == 0 then
+			_G.connections.dRefresh = cmdlp.CharacterAdded:Connect(function(char)
+        		wait(2)
+        		cmdlp.Character.HumanoidRootPart.CFrame = DiedTPs
+			end)
+		end
+	end
+end
+
+function useCommand.unrefreshdead()
+	deadRefresh = false
+	opx("-", "Refresh dead is now off")
+end
+
+function useCommand.god()
+	cmdlp.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+	opx("-","Godded character, may not work on some games")
+end
+
+function useCommand.ungod()
+	opx("-","Ungodded character")
+	cmdlp.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+end
+
+function useCommand.randomchat()
+	local tbl1 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/1"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--english words
+	local tbl2 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/2"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl1
+	local tbl3 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/3"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl2
+	local tbl4 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/4"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl3
+	local tbl5 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/5"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl5
+	local tbl6 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/6"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl4
+	local tbl7 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/7"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl6
+	local tbl8 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/8"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl7
+	local tbl9 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/9"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl8
+	local r1 = math.random(1,#tbl1)
+	local r2 = math.random(1,#tbl2)
+	local r3 = math.random(1,#tbl3)
+	local r4 = math.random(1,#tbl4)
+	local r5 = math.random(1,#tbl5)
+	local r6 = math.random(1,#tbl6)
+	local r7 = math.random(1,#tbl7)
+	local r8 = math.random(1,#tbl8)
+	local r9 = math.random(1,#tbl9)
+	opx("-",tbl1[r1].." "..tbl2[r2].." "..tbl3[r3].." "..tbl4[r4].." "..tbl5[r5].." "..tbl6[r6].." "..tbl7[r7].." "..tbl8[r8].." "..tbl9[r9])
+	cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tbl1[r1].." "..tbl2[r2].." "..tbl3[r3].." "..tbl4[r4].." "..tbl5[r5].." "..tbl6[r6].." "..tbl7[r7].." "..tbl8[r8].." "..tbl9[r9],"All")
+end
+
+function useCommand.enablereset()
+	opx("-","Force enabled reset button")
+	game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
+end
+
+function useCommand.disablereset()
+	opx("-","Force disabled reset button")
+	game:GetService("StarterGui"):SetCore("ResetButtonCallback", false)
+end
+
+local looping = false
+function useCommand.loop()
+	if arguments[2] then
+		looping = true
+		loopStat = getstring(2)
+		perCmd = arguments[2]
+		GoodNew = findCmd(perCmd)
+		opx("-","Now looping that command")
+		while looping do
+			wait()
+			arguments = loopStat:split(" ")
+			useCommand[GoodNew]()
+		end
+	else
+		opx("*","2 arguments are needed!")
+	end
+end
+
+function useCommand.unloop()
+	looping = false
+	wait(.1)
+	opx("-","No longer looping commands")
+end
+
+function useCommand.savetools()
+	opx("-","Saved tools")
+	for i,a in pairs(cmdlp.Backpack:GetDescendants()) do
+		if a:IsA("Tool") then
+			a.Parent = cmdlp.Character
+			a.Parent = workspace
+			a.Handle.Anchored = true
+		end
+	end
+end
+
+function useCommand.loadtools()
+	opx("-","Loaded tools")
+	for i,v in pairs(workspace:GetChildren()) do
+		if v:IsA("Tool") and v.Handle.Anchored == true then
+			v.Handle.Anchored = false
+			v.Handle.CFrame = cmdlp.Character.HumanoidRootPart.CFrame
+		end
+	end
+end
+
+function useCommand.hotkeyfly()
+	if arguments[2] then
+		hotkeyfly = arguments[2]
+		updatesaves()
+		opx("Hotkey set to "..arguments[2])
+	else
+		opx("A key is required")
+	end
+end
+
+function useCommand.plague()
+	if arguments[2] then
+		opx("-","You started a plague!")
+		cureFound = false
+		plaguename = arguments[2] 
+		if #cmdp:GetPlayers() > 6 then  
+			for i,v in pairs(cmdp:GetPlayers()) do 
+				wait(math.random(1,15))
+				if i == 1 then
+					cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(v.Name.." is the ZeroDay of "..plaguename, "All")
+				elseif i == 2 then
+					cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(plaguename.." was put on the watchlist by RHO", "All")
+					cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(v.Name.." was infected by "..plaguename, "All")			
+				elseif i == #cmdp:GetPlayers()-3 then 
+					randomss = math.random(1,2)
+					if randomss == 2 then
+						cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("A cure was found for "..plaguename.." RHO says it will be over soon", "All")
+						cureFound = true
+					else
+						cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Roblox begins breaking down as "..plaguename.." infects the majority of the population", "All")
+					end
+				elseif i == #cmdp:GetPlayers() then 
+					if cureFound == false then
+						cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Roblox was completely infected by "..plaguename, "All")
+					else
+						cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Roblox won against "..plaguename, "All")
+					end
+				else
+					if cureFound == false then
+						cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(v.Name.." was infected by "..plaguename, "All")
+					end
+				end
+			end
+		else
+			opx("*","You need 6 plus players!")
+		end
+	else
+		opx("*","You need 2 arguments!")
+	end
+end
+
+function useCommand.removecmd()
+    local removingcmd = findCmd(arguments[2])
+    if not removingcmd then
+        opx("*","Command does not exist!")
+        return
+    end
+    opx("-","Removed command")
+    useCommand[removingcmd] = function() wait() end
+end
+
+function useCommand.removecustomnametag()
+	opx("-","Removed any custom name tags")
+	for i,v in pairs(cmdlp.Character:GetDescendants()) do
+		if v:IsA("BillboardGui") then
+			v:Destroy()
+		end
+	end
+end
+
+function useCommand.stubby()
+	opx("-","You are now stubby")
+	cmdlp.Character.RightHand:Destroy()
+	cmdlp.Character.LeftHand:Destroy()
+	cmdlp.Character.RightFoot:Destroy()
+	cmdlp.Character.LeftFoot:Destroy()
+end
+
+function useCommand.listunanchored()
+	opx("-","Listing unanchored parts")
+	xUnanchored = ""
+	Num = 0
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("BasePart" or "UnionOperation") and v.Anchored == false and v:IsDescendantOf(cmdlp.Character) == false then
+			xUnanchored = xUnanchored..v.Name..", "
+			Num = Num + 1
+		end
+	end
+	xUnanchored = Num.." | "..xUnanchored
+	opxL("Unanchored Parts",xUnanchored)
+end
+
+function useCommand.iq()
+	if arguments[2] then
+		target = findplr(arguments[2])
+		if target then
+			math.randomseed(target.UserId)
+			local iq1 = math.random(1,200)
+			opx("-",target.Name.." has "..iq1.." IQ")
+			cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(target.Name.." has "..iq1.." IQ","All")
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required for this command!")
+	end
+end
+
+function useCommand.credits()
+	opx("-","Opened credits")
+	opxL("Credits","Note: Some discords may be out of date due to consistent changing;\
+	Owner - "..DevCords[1].."\
+	Co-Owner - "..DevCords[2].."\
+	Dev - "..DevCords[3].."\
+	Intro Audio - liv#2001\
+	Intro Audio 2 - Adderalled\
+	Thank you to IY for some functions inside CMD-X\
+	Thank you to Bannable#5005 for animpack\
+	Thank you to 6033#6033 for old-aimbot")
+end
+
+function useCommand.outputlarger()
+	if arguments[2] then
+		opxString = getstring(2)
+		opx("-","Opened output-larger")
+		opxL("Output-Longer",opxString)
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+local funa = false
+function useCommand.freezeunanchored()
+	sethiddenproperty = sethiddenproperty or set_hidden_prop
+	gethiddenproperty = gethiddenproperty or get_hidden_prop
+	if not sethiddenproperty or not gethiddenproperty then
+		opx("*","Your exploit does not support this command. There is nothing we can do.")
+		return
+	end
+	opx("-","Froze unanchored parts")
+	funa = true
+	cmdlp.MaximumSimulationRadius = math.huge
+	sethiddenproperty(cmdlp, "SimulationRadius", math.huge)
+	local unanchoredparts = {}
+	local movers = {}
+	for index, part in pairs(workspace:GetDescendants()) do
+		if part:IsA("BasePart" or "UnionOperation" or "Model") and part.Anchored == false and part:IsDescendantOf(cmdlp.Character) == false then
+			table.insert(unanchoredparts, part)
+			part.Massless = true
+			part.CanCollide = false
+			if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+				part:FindFirstChildOfClass("BodyPosition"):Destroy()
+			end
+		end
+	end
+	for index, part in pairs(unanchoredparts) do
+		local mover = Instance.new("BodyPosition", part)
+		table.insert(movers, mover)
+		mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+	end
+	repeat
+		for index, mover in pairs(movers) do
+			mover.Position = mover.Position
+		end
+		wait(.1)
+	until funa == false
+	cmdlp.MaximumSimulationRadius = 139
+	sethiddenproperty(cmdlp, "SimulationRadius", 139)
+end
+
+function useCommand.thawunanchored()
+	opx("-","Thawed unanchored parts")
+	funa = false
+end
+
+function useCommand.massjoindate()
+	opx("-","Showing join dates")
+	xJD = ""
+	for i,v in pairs(cmdp:GetPlayers()) do
+		local tbl = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://users.roblox.com/v1/users/"..v.UserId))
+		local Created = tbl["created"]:split("T")
+		local Created2 = Created[2]:split(".")
+		xJD = xJD..v.Name.." joined on: "..Created[1].." "..Created2[1].."\n"
+	end
+	opxL("Join dates",xJD)
+end
+
+function useCommand.massage()
+	opx("-","Showing ages")
+	xAge = ""
+	for i,v in pairs(cmdp:GetPlayers()) do 
+		local Years = string.split(v.AccountAge/365,".")
+		xAge = xAge..v.Name.."(s) account is "..Years[1].." year(s) old or "..v.AccountAge.." day(s) old\n"
+	end
+	opxL("Account ages",xAge)
+end
+
+function useCommand.massid()
+	opx("-","Showing IDs")
+	xID = ""
+	for i,v in pairs(cmdp:GetPlayers()) do 
+		xID = xID..v.Name.."s User ID is "..v.UserId.."\n"
+	end
+	opxL("User IDs",xID)
+end
+
+function useCommand.rejoindiff()
+	rejoining = true
+	if syn.queue_on_teleport then
+		syn.queue_on_teleport('game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()')
+	end
+	opx("-","Starting rejoin different...")
+	local Decision = "any" or arguments[2]
+	local GUIDs = {}
+	local maxPlayers = 0
+	local Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100&cursor="))
+	for i = 1,100 do
+		for i,v in pairs(Http.data) do
+			if v.playing ~= v.maxPlayers then
+				maxPlayers = v.maxPlayers
+				table.insert(GUIDs, {id = v.id, users = v.playing})
+			end
+		end
+		opx("-","Page searched...")
+		if Http.nextPageCursor ~= null then Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100&cursor="..Http.nextPageCursor)) else break end
+	end
+	opx("-","Attempting teleport...")
+	if Decision == "any" then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[math.random(1,#GUIDs)].id, cmdlp)
+	elseif Decision == "smallest" then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[#GUIDs].id, cmdlp)
+	elseif Decision == "largest" then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[1].id, cmdlp)
+	else
+		opx("*","A valid preset was required!")
+	end
+	wait(3)
+	rejoining = false
+end
+
+function useCommand.streamsnipe()
+	rejoining = true
+	if syn.queue_on_teleport then
+		syn.queue_on_teleport('game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()')
+	end
+	if not arguments[3] then
+		opx("*","2 arguments are required!")
+		return
+	end
+	local placeid = arguments[3]
+	if arguments[3] == "this" then placeid = game.PlaceId end
+	local Decision = tonumber(cmdp:GetUserIdFromNameAsync(arguments[2]))
+	opx("-","Starting streamsnipe on "..arguments[2].."...")
+	local GUIDs = {}
+	local maxPlayers = 0
+	local Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..placeid.."/servers/Public?sortOrder=Asc&limit=100&cursor="))
+	for i = 1,100 do
+		for i,v in pairs(Http.data) do
+			for x,y in pairs(v.playerIds) do
+				if tonumber(y) == Decision then
+					userFound = true
+					opx("-","Found user! Teleporting...")
+					game:GetService("TeleportService"):TeleportToPlaceInstance(placeid, v.id, cmdlp)
+					break
+				end
+			end
+			if userFound then break end
+		end
+		if userFound then break end
+		opx("-","Page searched...")
+		if Http.nextPageCursor ~= null then Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..placeid.."/servers/Public?sortOrder=Asc&limit=100&cursor="..Http.nextPageCursor)) else break end
+	end
+	wait(3)
+	opx("*","User not found!")
+	rejoining = false
+end
+
+function useCommand.irltime()
+	opx("-","Set time to IRL")
+	for i,v in pairs(game:GetService("Lighting"):GetChildren()) do
+		if v:IsA("Sky") then v:Destroy() end
+	end
+	local reg = game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(cmdlp)
+	local URL = ("https://restcountries.eu/rest/v2/alpha/"..reg)
+	local fuck = game:HttpGet(URL)
+	local Http = game:GetService("HttpService"):JSONDecode(fuck)
+	game:GetService("Lighting").GeographicLatitude = Http.latlng[1]
+	while wait(1) do
+		game:GetService("Lighting").TimeOfDay = os.date("!*t").hour + 1 ..":"..os.date("!*t").min..":00"
+	end
+end
+
+function useCommand.transparentbubbles()
+	if arguments[2] then
+		if _G.transbubbles then
+			opx("*","Transparent bubbles are already enabled.")
+			return
+		end
+		local Transparency = arguments[2]
+		if cmdlp.PlayerGui:FindFirstChild("BubbleChat") then
+			_G.transbubbles = cmdlp.PlayerGui:FindFirstChild("BubbleChat").DescendantAdded:connect(function(msg)
+				if msg:IsA("ImageLabel") and msg.Name == "ChatBubble" or msg:IsA("ImageLabel") and msg.Name == "ChatBubbleTail" or msg:IsA("ImageLabel") and msg.Name == "SmallTalkBubble" then
+					msg.ImageTransparency = Transparency
+				end
+			end)
+		end
+		opx("-","Transparent bubbles have been enabled.")
+	else
+		opx("*","2 arguments are required!")
+end
+end
+
+function useCommand.untransparentbubbles()
+	if not _G.transbubbles then
+		opx("*","Transparent bubbles are not enabled.")
+	end
+	_G.transbubbles:Disconnect()
+	_G.transbubbles = nil
+	opx("-","Transparent bubbles have been disabled.")
+end
+
+function useCommand.directjoin()
+	if arguments[3] then
+		rejoining = true
+		if syn.queue_on_teleport then
+			syn.queue_on_teleport('game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()')
+		end
+		opx("-","Joining server")
+		if arguments[2] == "this" then arguments[2] = game.PlaceId end
+		game:GetService("TeleportService"):TeleportToPlaceInstance(arguments[2],arguments[3],cmdlp)
+		wait(3)
+		rejoining = false
+	else
+		opx("*","3 arguments are required!")
+	end
+end
+
+pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/depthoffield",true))() end)
+-- Thanks to MrAsyncRoblox on github, full credits.
+
+function useCommand.timedcmd()
+	if arguments[3] then
+		opx("-","Executing command after time given")
+		local newarguments = getstring(3)
+		wait(arguments[2])
+		arguments = newarguments:split(" ")
+		useCommand[arguments[1]]()
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.randomos()
+	opx("-","Changed your OS to a random string")
+	local tbl1 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/1"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--english words
+	local tbl2 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/2"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl1
+	local tbl3 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/3"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl2
+	local tbl4 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/4"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl3
+	local tbl5 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/5"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl5
+	local tbl6 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/6"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl4
+	local tbl7 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/7"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl6
+	local tbl8 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/8"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl7
+	local tbl9 = game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/randomchat/9"):gsub('"',""):gsub('{',""):gsub('}',""):split(",")--tbl8
+	local r1 = math.random(1,#tbl1)
+	local r2 = math.random(1,#tbl2)
+	local r3 = math.random(1,#tbl3)
+	local r4 = math.random(1,#tbl4)
+	local r5 = math.random(1,#tbl5)
+	local r6 = math.random(1,#tbl6)
+	local r7 = math.random(1,#tbl7)
+	local r8 = math.random(1,#tbl8)
+	local r9 = math.random(1,#tbl9)
+	cmdlp.OsPlatform = tbl1[r1].." "..tbl2[r2].." "..tbl3[r3].." "..tbl4[r4].." "..tbl5[r5].." "..tbl6[r6].." "..tbl7[r7].." "..tbl8[r8].." "..tbl9[r9]
+end
+
+function useCommand.depth()
+	DynamicDepth:Enable()
+	if arguments[2] then
+		opx("-","Set DepthOfField to "..arguments[2])
+		DynamicDepth:SetFocusRadius(arguments[2])
+	else
+		opx("-","Set DepthOfField to 15")
+		DynamicDepth:SetFocusRadius(15)
+	end
+end
+
+function useCommand.undepth()
+	opx("-","Disabled DepthOfField")
+	DynamicDepth:SetFocusRadius(10000)
+end
+
+function useCommand.cinematic()
+	game:GetService("CoreGui").TopBar.Enabled = false
+	game:GetService("CoreGui").RobloxGui.Backpack.Visible = false
+	game:GetService("CoreGui").RobloxGui.PlayerListMaster.Visible = false
+	opx("-","Enabled cinematic mode")
+end
+
+function useCommand.uncinematic()
+	game:GetService("CoreGui").TopBar.Enabled = true
+	game:GetService("CoreGui").RobloxGui.Backpack.Visible = true
+	game:GetService("CoreGui").RobloxGui.PlayerListMaster.Visible = true
+	opx("-","Disabled cinematic mode")
+end
+-- freecam by roblox ty roblox lol
+pi    = math.pi
+abs   = math.abs
+clamp = math.clamp
+exp   = math.exp
+rad   = math.rad
+sign  = math.sign
+sqrt  = math.sqrt
+tan   = math.tan
+
+ContextActionService = game:GetService("ContextActionService")
+Players = cmdp
+RunService = game:GetService("RunService")
+StarterGui = game:GetService("StarterGui")
+UserInputService = game:GetService("UserInputService")
+Workspace = workspace
+
+LocalPlayer = cmdlp
+if not LocalPlayer then
+	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+	LocalPlayer = cmdlp
+end
+
+Camera = Workspace.CurrentCamera
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	local newCamera = Workspace.CurrentCamera
+	if newCamera then
+		Camera = newCamera
+	end
+end)
+
+TOGGLE_INPUT_PRIORITY = Enum.ContextActionPriority.Low.Value
+INPUT_PRIORITY = Enum.ContextActionPriority.High.Value
+FREECAM_MACRO_KB = {Enum.KeyCode.LeftShift, Enum.KeyCode.P}
+
+NAV_GAIN = Vector3.new(1, 1, 1)*64
+PAN_GAIN = Vector2.new(0.75, 1)*8
+FOV_GAIN = 300
+
+PITCH_LIMIT = rad(90)
+
+VEL_STIFFNESS = 1.5
+PAN_STIFFNESS = 1.0
+FOV_STIFFNESS = 4.0
+
+Spring = {} do
+	Spring.__index = Spring
+
+	function Spring.new(freq, pos)
+		local self = setmetatable({}, Spring)
+		self.f = freq
+		self.p = pos
+		self.v = pos*0
+		return self
+	end
+
+	function Spring:Update(dt, goal)
+		local f = self.f*2*pi
+		local p0 = self.p
+		local v0 = self.v
+
+		local offset = goal - p0
+		local decay = exp(-f*dt)
+
+		local p1 = goal + (v0*dt - offset*(f*dt + 1))*decay
+		local v1 = (f*dt*(offset*f - v0) + v0)*decay
+
+		self.p = p1
+		self.v = v1
+
+		return p1
+	end
+
+	function Spring:Reset(pos)
+		self.p = pos
+		self.v = pos*0
+	end
+end
+
+cameraPos = Vector3.new()
+cameraRot = Vector2.new()
+cameraFov = 0
+
+velSpring = Spring.new(VEL_STIFFNESS, Vector3.new())
+panSpring = Spring.new(PAN_STIFFNESS, Vector2.new())
+fovSpring = Spring.new(FOV_STIFFNESS, 0)
+
+Input = {} do
+	local thumbstickCurve do
+		K_CURVATURE = 2.0
+		K_DEADZONE = 0.15
+
+		function fCurve(x)
+			return (exp(K_CURVATURE*x) - 1)/(exp(K_CURVATURE) - 1)
+		end
+
+		function fDeadzone(x)
+			return fCurve((x - K_DEADZONE)/(1 - K_DEADZONE))
+		end
+
+		function thumbstickCurve(x)
+			return sign(x)*clamp(fDeadzone(abs(x)), 0, 1)
+		end
+	end
+
+	gamepad = {
+		ButtonX = 0,
+		ButtonY = 0,
+		DPadDown = 0,
+		DPadUp = 0,
+		ButtonL2 = 0,
+		ButtonR2 = 0,
+		Thumbstick1 = Vector2.new(),
+		Thumbstick2 = Vector2.new(),
+	}
+
+	keyboard = {
+		W = 0,
+		A = 0,
+		S = 0,
+		D = 0,
+		E = 0,
+		Q = 0,
+		U = 0,
+		H = 0,
+		J = 0,
+		K = 0,
+		I = 0,
+		Y = 0,
+		Up = 0,
+		Down = 0,
+		LeftShift = 0,
+		RightShift = 0,
+	}
+
+	mouse = {
+		Delta = Vector2.new(),
+		MouseWheel = 0,
+	}
+
+	NAV_GAMEPAD_SPEED  = Vector3.new(1, 1, 1)
+	NAV_KEYBOARD_SPEED = Vector3.new(1, 1, 1)
+	PAN_MOUSE_SPEED    = Vector2.new(1, 1)*(pi/64)
+	PAN_GAMEPAD_SPEED  = Vector2.new(1, 1)*(pi/8)
+	FOV_WHEEL_SPEED    = 1.0
+	FOV_GAMEPAD_SPEED  = 0.25
+	NAV_ADJ_SPEED      = 0.75
+	NAV_SHIFT_MUL      = 0.25
+
+	navSpeed = 1
+
+	function Input.Vel(dt)
+		navSpeed = clamp(navSpeed + dt*(keyboard.Up - keyboard.Down)*NAV_ADJ_SPEED, 0.01, 4)
+
+		kGamepad = Vector3.new(
+			thumbstickCurve(gamepad.Thumbstick1.x),
+			thumbstickCurve(gamepad.ButtonR2) - thumbstickCurve(gamepad.ButtonL2),
+			thumbstickCurve(-gamepad.Thumbstick1.y)
+		)*NAV_GAMEPAD_SPEED
+
+		kKeyboard = Vector3.new(
+			keyboard.D - keyboard.A + keyboard.K - keyboard.H,
+			keyboard.E - keyboard.Q + keyboard.I - keyboard.Y,
+			keyboard.S - keyboard.W + keyboard.J - keyboard.U
+		)*NAV_KEYBOARD_SPEED
+
+		shift = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
+
+		return (kGamepad + kKeyboard)*(navSpeed*(shift and NAV_SHIFT_MUL or 1))
+	end
+
+	function Input.Pan(dt)
+		kGamepad = Vector2.new(
+			thumbstickCurve(gamepad.Thumbstick2.y),
+			thumbstickCurve(-gamepad.Thumbstick2.x)
+		)*PAN_GAMEPAD_SPEED
+		kMouse = mouse.Delta*PAN_MOUSE_SPEED
+		mouse.Delta = Vector2.new()
+		return kGamepad + kMouse
+	end
+
+	function Input.Fov(dt)
+		kGamepad = (gamepad.ButtonX - gamepad.ButtonY)*FOV_GAMEPAD_SPEED
+		kMouse = mouse.MouseWheel*FOV_WHEEL_SPEED
+		mouse.MouseWheel = 0
+		return kGamepad + kMouse
+	end
+
+	do
+		function Keypress(action, state, input)
+			keyboard[input.KeyCode.Name] = state == Enum.UserInputState.Begin and 1 or 0
+			return Enum.ContextActionResult.Sink
+		end
+
+		function GpButton(action, state, input)
+			gamepad[input.KeyCode.Name] = state == Enum.UserInputState.Begin and 1 or 0
+			return Enum.ContextActionResult.Sink
+		end
+
+		function MousePan(action, state, input)
+			delta = input.Delta
+			mouse.Delta = Vector2.new(-delta.y, -delta.x)
+			return Enum.ContextActionResult.Sink
+		end
+
+		function Thumb(action, state, input)
+			gamepad[input.KeyCode.Name] = input.Position
+			return Enum.ContextActionResult.Sink
+		end
+
+		function Trigger(action, state, input)
+			gamepad[input.KeyCode.Name] = input.Position.z
+			return Enum.ContextActionResult.Sink
+		end
+
+		function MouseWheel(action, state, input)
+			mouse[input.UserInputType.Name] = -input.Position.z
+			return Enum.ContextActionResult.Sink
+		end
+
+		function Zero(t)
+			for k, v in pairs(t) do
+				t[k] = v*0
+			end
+		end
+
+		function Input.StartCapture()
+			ContextActionService:BindActionAtPriority("FreecamKeyboard", Keypress, false, INPUT_PRIORITY,
+				Enum.KeyCode.W, Enum.KeyCode.U,
+				Enum.KeyCode.A, Enum.KeyCode.H,
+				Enum.KeyCode.S, Enum.KeyCode.J,
+				Enum.KeyCode.D, Enum.KeyCode.K,
+				Enum.KeyCode.E, Enum.KeyCode.I,
+				Enum.KeyCode.Q, Enum.KeyCode.Y,
+				Enum.KeyCode.Up, Enum.KeyCode.Down
+			)
+			ContextActionService:BindActionAtPriority("FreecamMousePan",          MousePan,   false, INPUT_PRIORITY, Enum.UserInputType.MouseMovement)
+			ContextActionService:BindActionAtPriority("FreecamMouseWheel",        MouseWheel, false, INPUT_PRIORITY, Enum.UserInputType.MouseWheel)
+			ContextActionService:BindActionAtPriority("FreecamGamepadButton",     GpButton,   false, INPUT_PRIORITY, Enum.KeyCode.ButtonX, Enum.KeyCode.ButtonY)
+			ContextActionService:BindActionAtPriority("FreecamGamepadTrigger",    Trigger,    false, INPUT_PRIORITY, Enum.KeyCode.ButtonR2, Enum.KeyCode.ButtonL2)
+			ContextActionService:BindActionAtPriority("FreecamGamepadThumbstick", Thumb,      false, INPUT_PRIORITY, Enum.KeyCode.Thumbstick1, Enum.KeyCode.Thumbstick2)
+		end
+
+		function Input.StopCapture()
+			navSpeed = 1
+			Zero(gamepad)
+			Zero(keyboard)
+			Zero(mouse)
+			ContextActionService:UnbindAction("FreecamKeyboard")
+			ContextActionService:UnbindAction("FreecamMousePan")
+			ContextActionService:UnbindAction("FreecamMouseWheel")
+			ContextActionService:UnbindAction("FreecamGamepadButton")
+			ContextActionService:UnbindAction("FreecamGamepadTrigger")
+			ContextActionService:UnbindAction("FreecamGamepadThumbstick")
+		end
+	end
+end
+
+function GetFocusDistance(cameraFrame)
+	local znear = 0.1
+	local viewport = Camera.ViewportSize
+	local projy = 2*tan(cameraFov/2)
+	local projx = viewport.x/viewport.y*projy
+	local fx = cameraFrame.rightVector
+	local fy = cameraFrame.upVector
+	local fz = cameraFrame.lookVector
+
+	local minVect = Vector3.new()
+	local minDist = 512
+
+	for x = 0, 1, 0.5 do
+		for y = 0, 1, 0.5 do
+			local cx = (x - 0.5)*projx
+			local cy = (y - 0.5)*projy
+			local offset = fx*cx - fy*cy + fz
+			local origin = cameraFrame.p + offset*znear
+			local _, hit = Workspace:FindPartOnRay(Ray.new(origin, offset.unit*minDist))
+			local dist = (hit - origin).magnitude
+			if minDist > dist then
+				minDist = dist
+				minVect = offset.unit
+			end
+		end
+	end
+	return fz:Dot(minVect)*minDist
+end
+
+local function StepFreecam(dt)
+	local vel = velSpring:Update(dt, Input.Vel(dt))
+	local pan = panSpring:Update(dt, Input.Pan(dt))
+	local fov = fovSpring:Update(dt, Input.Fov(dt))
+
+	local zoomFactor = sqrt(tan(rad(70/2))/tan(rad(cameraFov/2)))
+
+	cameraFov = clamp(cameraFov + fov*FOV_GAIN*(dt/zoomFactor), 1, 120)
+	cameraRot = cameraRot + pan*PAN_GAIN*(dt/zoomFactor)
+	cameraRot = Vector2.new(clamp(cameraRot.x, -PITCH_LIMIT, PITCH_LIMIT), cameraRot.y%(2*pi))
+
+	local cameraCFrame = CFrame.new(cameraPos)*CFrame.fromOrientation(cameraRot.x, cameraRot.y, 0)*CFrame.new(vel*NAV_GAIN*dt)
+	cameraPos = cameraCFrame.p
+
+	Camera.CFrame = cameraCFrame
+	Camera.Focus = cameraCFrame*CFrame.new(0, 0, -GetFocusDistance(cameraCFrame))
+	Camera.FieldOfView = cameraFov
+end
+
+local PlayerState = {} do
+	mouseBehavior = ""
+	mouseIconEnabled = ""
+	cameraType = ""
+	cameraFocus = ""
+	cameraCFrame = ""
+	cameraFieldOfView =  ""
+	screenGuis = {}
+
+	function PlayerState.Push()
+		cameraFieldOfView = Camera.FieldOfView
+		Camera.FieldOfView = 70
+
+		cameraType = Camera.CameraType
+		Camera.CameraType = Enum.CameraType.Custom
+
+		cameraCFrame = Camera.CFrame
+		cameraFocus = Camera.Focus
+
+		mouseIconEnabled = UserInputService.MouseIconEnabled
+		UserInputService.MouseIconEnabled = true
+
+		mouseBehavior = UserInputService.MouseBehavior
+		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+	end
+
+	function PlayerState.Pop()
+		Camera.FieldOfView = 70
+
+		Camera.CameraType = cameraType
+		cameraType = nil
+
+		Camera.CFrame = cameraCFrame
+		cameraCFrame = nil
+
+		Camera.Focus = cameraFocus
+		cameraFocus = nil
+
+		UserInputService.MouseIconEnabled = mouseIconEnabled
+		mouseIconEnabled = nil
+
+		UserInputService.MouseBehavior = mouseBehavior
+		mouseBehavior = nil
+	end
+end
+
+function StartFreecam(p)
+	local cameraCFrame = Camera.CFrame
+	if p then
+		cameraCFrame = p
+	end
+	cameraRot = Vector2.new()
+	cameraPos = cameraCFrame.p
+	cameraFov = Camera.FieldOfView
+
+	velSpring:Reset(Vector3.new())
+	panSpring:Reset(Vector2.new())
+	fovSpring:Reset(0)
+
+	PlayerState.Push()
+	RunService:BindToRenderStep("Freecam", Enum.RenderPriority.Camera.Value, StepFreecam)
+	Input.StartCapture()
+end
+
+function StopFreecam()
+	Input.StopCapture()
+	RunService:UnbindFromRenderStep("Freecam")
+	PlayerState.Pop()
+	workspace.Camera.FieldOfView = 70
+end
+
+FreecamOn = false
+function useCommand.freecam()
+	opx("-","Activated freecam")
+	StartFreecam()
+	wait(.1)
+	navSpeed = permfcspeed
+	FreecamOn = true
+	NAV_KEYBOARD_SPEED = Vector3.new(permfcspeed, permfcspeed, permfcspeed)
+end
+
+function useCommand.freecamspeed()
+	if cmdnum(arguments[2]) then
+		opx("-","Freecam speed set to "..arguments[2])
+		navSpeed = arguments[2]
+		NAV_KEYBOARD_SPEED = Vector3.new(arguments[2], arguments[2], arguments[2])
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.permfreecamspeed()
+	if cmdnum(arguments[2]) then
+		opx("-","Set perm free cam speed")
+		permfcspeed = arguments[2]
+		updatesaves()
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.unfreecam()
+	opx("-","De-Activated freecam")
+	StopFreecam()
+	FreecamOn = false
+	wait(1)
+	workspace.Camera.FieldOfView = 70
+end
+
+function useCommand.freecamgoto()
+	if FreecamOn then
+		if arguments[2] then
+			local target = findplr(arguments[2])
+			if target then
+				StopFreecam()
+				wait(.1)
+				opx("-","Teleported freecam to "..target.Name)
+				StartFreecam(target.Character.HumanoidRootPart.CFrame)
+				navSpeed = permfcspeed
+				NAV_KEYBOARD_SPEED = Vector3.new(permfcspeed, permfcspeed, permfcspeed)
+			else
+				opx("*","Player does not exist!")
+			end
+		else
+			opx("*","2 arguments are required!")
+		end
+	else
+		opx("*","Freecam isnt running!")
+	end
+end
+
+function useCommand.freecamfreegoto()
+	if FreecamOn then
+		if arguments[4] then
+			StopFreecam()
+			wait(.1)
+			opx("-","Teleported freecam to pos")
+			StartFreecam(arguments[2],arguments[3],arguments[4])
+			navSpeed = permfcspeed
+			NAV_KEYBOARD_SPEED = Vector3.new(permfcspeed, permfcspeed, permfcspeed)
+		else
+			opx("*","2 arguments are required!")
+		end
+	else
+		opx("*","Freecam isnt running!")
+	end
+end
+
+function useCommand.freecamloadpos()
+	if FreecamOn then
+		if arguments[2] then
+			StopFreecam()
+			wait(.1)
+			wpNS = getstring(2)
+			for i,v in pairs(WPs) do
+				local xc = WPs[i].C[1]
+				local yc = WPs[i].C[2]
+				local zc = WPs[i].C[3]
+				if tostring(WPs[i].N) == tostring(wpNS) then
+					StartFreecam(xc,yc,zc)
+					navSpeed = permfcspeed
+					NAV_KEYBOARD_SPEED = Vector3.new(permfcspeed, permfcspeed, permfcspeed)
+				end
+			end
+			opx("Teleported to "..tostring(wpNS))
+		else
+			opx("*","2 arguments are needed for this command!")
+		end
+	else
+		opx("*","Freecam isnt running!")
+	end
+end
+
+function useCommand.freecamgotopart()
+	if FreecamOn then
+		if arguments[2] then
+			StopFreecam()
+			wait(.1)
+			opx("-","Teleported freecam to part")
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v.Name == getstring(2) then
+					StartFreecam(v.CFrame)
+					navSpeed = permfcspeed
+					NAV_KEYBOARD_SPEED = Vector3.new(permfcspeed, permfcspeed, permfcspeed)
+					break
+				end
+			end
+		else
+			opx("*","2 arguments are required!")
+		end
+	else
+		opx("*","Freecam isnt running!")
+	end
+end
+
+function useCommand.freecamgotoclass()
+	if FreecamOn then
+		if arguments[2] then
+			StopFreecam()
+			wait(.1)
+			opx("-","Teleported freecam to class")
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v.ClassName == getstring(2) then
+					StartFreecam(v.CFrame)
+					navSpeed = permfcspeed
+					NAV_KEYBOARD_SPEED = Vector3.new(permfcspeed, permfcspeed, permfcspeed)
+					break
+				else
+					opx("*","Part does not exist")
+				end
+			end
+		else
+			opx("*","2 arguments are required!")
+		end
+	else
+		opx("*","Freecam isnt running!")
+	end
+end
+
+function useCommand.spotify()
+    opx("-","Spotify Premium is needed to run Spotify Presence")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/projetcs/spotifypresence"))()
+end
+
+function useCommand.friendjoin()
+	rejoining = true
+	if arguments[2] then
+		opx("-","Scanning friends, this may take some time")
+		local target = arguments[2]
+		local friends = cmdlp:GetFriendsOnline(200)
+		for i,v in pairs(friends) do
+			if v.UserName == target then
+				if v.LastLocation then
+					if syn.queue_on_teleport then
+						syn.queue_on_teleport('game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()')
+					end
+					opx("-","Joining friend")
+					game:GetService("TeleportService"):TeleportToPlaceInstance(v.PlaceId,v.GameId,cmdlp)
+				else
+					opx("*","Friend isnt in a game!")
+				end
+				break
+			end
+		end
+		opx("*","Friend dosent exist!")
+	else
+		opx("*","2 arguments are required!")
+	end
+	wait(3)
+	rejoining = false
+end
+
+function useCommand.hotkeynoclip()
+	if arguments[2] then
+		hotkeynoclip = arguments[2]
+		updatesaves()
+		opx("-","Added key to noclip")
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.spoofos()
+	if arguments[2] then
+		opx("-","Spoofed OS to "..getstring(2))
+		cmdlp.OsPlatform = getstring(2)
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.noshow()
+	if arguments[2] == "on" then
+		opx("-","No-Show is now on")
+		opx("-","Make sure to reset your character!")
+		sDetect = false
+		updatesaves()
+	elseif arguments[2] == "off" then
+		opx("-","No-Show is now off")
+		opx("-","Make sure to reset your character!")
+		sDetect = true
+		updatesaves()
+	else
+		opx("*","A valid preset is needed!")
+	end
+end
+
+function useCommand.players()
+	opx("Listed players in game")
+	xPlayers = #cmdp:GetPlayers().." | "
+	for i,v in pairs(cmdp:GetPlayers()) do
+		xPlayers = xPlayers..v.Name..", "
+	end
+	opxL("Players",xPlayers)
+end
+
+function useCommand.viewserver()
+	if not arguments[3] then
+		opx("*","3 arguments are required!")
+		return
+	end
+	local xPlayers = ""
+	local placeid,guid = arguments[2],arguments[3]
+	local serverFound = false
+	if arguments[2] == "this" then placeid = game.PlaceId end
+	local Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..placeid.."/servers/Public?sortOrder=Asc&limit=100&cursor="))
+	for i = 1,100 do
+		for i,v in pairs(Http.data) do
+			if v.id ~= guid then
+				serverFound = true
+				for x,y in pairs(v.playerIds) do
+					xPlayers = xPlayers..cmdp:GetNameFromUserIdAsync(y)..", "
+				end
+				break
+			end
+			if serverFound then break end
+		end
+		if serverFound then break end
+		if Http.nextPageCursor ~= null then Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..placeid.."/servers/Public?sortOrder=Asc&limit=100&cursor="..Http.nextPageCursor)) else break end
+	end
+	opx("-","Listed all players in "..guid)
+	opxL("Players "..guid,xPlayers)
+end
+
+function useCommand.servers()
+	if not arguments[2] then
+		opx("*","2 arguments are required!")
+		return
+	end
+	local placeid = arguments[2]
+	if arguments[2] == "this" then
+		placeid = game.PlaceId
+	end
+	local xServers = ""
+	local Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..placeid.."/servers/Public?sortOrder=Asc&limit=100&cursor="))
+	for i = 1,100 do
+		for i,v in pairs(Http.data) do
+			xServers = xServers..v.playing.."/"..v.maxPlayers.." {"..v.id.."}".."\n"
+		end
+		opx("-","Page searched...")
+		if Http.nextPageCursor then
+			Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..placeid.."/servers/Public?sortOrder=Asc&limit=100&cursor="..Http.nextPageCursor))
+		else
+			break
+		end
+	end
+	opx("-","Listed all servers")
+	opxL("Servers",xServers)
+end
+function useCommand.antikick()
+	opx("-","Anti-Kick enabled")
+	local ncallsa = mt.__namecall
+	setreadonly(mt, false)
+	mt.__namecall = newcclosure(function(...)
+		local args = {...}
+		if not checkcaller() and getnamecallmethod() == "Kick" then
+			return nil
+		end
+		return ncallsa(...)
+	end)
+	setreadonly(mt, true)
+end
+
+function useCommand.cmdinfo()
+	local cmdinfo = {}
+	if CMDS.commands[arguments[2]] then
+		cmdinfo.description = CMDS.commands[findCmd(arguments[2])]
+		cmdinfo.name = findCmd(arguments[2])
+		cmdinfo.usage = CMDS.usage[findCmd(arguments[2])]
+	elseif CMDS.aliases[arguments[2]] then
+		cmdinfo.description = CMDS.commands[CMDS.aliases[arguments[2]]]
+		cmdinfo.name = CMDS.aliases[arguments[2]]
+		cmdinfo.usage = CMDS.usage[CMDS.aliases[arguments[2]]]
+	end
+	if not cmdinfo.description or not cmdinfo.name then
+		opx("*","Invalid command "..arguments[2]..".")
+		return
+	end
+	if not cmdinfo.usage then
+		cmdinfo.usage = "()"
+	end
+	opxL("Command","."..cmdinfo.name.." | "..cmdinfo.usage.." "..cmdinfo.description)
+end
+
+function useCommand.sentinelexplorer()
+	opx("-","Loading SENTINEL DEX")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/others/sdex", true))()
+	opx("-","Loaded SENTINEL DEX")
+end
+
+Pxrts = {}
+function useCommand.truesight()
+	opx("-","Truesight is now on")
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("BasePart") and v.Transparency == 1 then
+			v.Transparency = 0
+			Pxrts[#Pxrts+1] = v
+		end
+	end
+end
+
+LoopFling = false
+function useCommand.loopfling()
+	if arguments[2] then
+		target = findplr(arguments[2])
+		if target then
+			while LoopFling do
+				arguments = {"fling",target.Name}
+				useCommand.fling()
+				repeat wait(.1) until target.Character ~= nil and target.Character:FindFirstChild('HumanoidRootPart')
+			end
+		else
+			opx("*","Player does not exist!")    
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.unloopfling()
+	opx("-","Stopped loop flinging")
+	LoopFling = false
+end
+
+function useCommand.nomouse()
+	opx("-","Mouse disabled, use ; to focus back on the CMDbar")
+	game:GetService("UserInputService").MouseIconEnabled = false
+end
+
+function useCommand.yesmouse()
+	opx("-","Mouse enabled")
+	game:GetService("UserInputService").MouseIconEnabled = true
+end
+
+function useCommand.untruesight()
+	opx("-","Truesight is now off")
+	for i,v in pairs(Pxrts) do
+		v.Transparency = 1
+	end
+end
+
+local PDisabled = {}
+function useCommand.disableplayer()
+	if arguments[2] then
+		local target = findplr(arguments[2])
+		if target then
+			target.Character.Head.face.Transparency = 1
+			opx("-","Disabled "..target.Name)
+			PDisabled[#PDisabled+1] = target
+			local UserNum = #PDisabled
+			for i,v in pairs(target.Character:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Transparency = 1
+				end
+			end
+			target.CharacterAdded:Connect(function(Character)
+				if PDisabled[UserNum] ~= nil then
+					for i,v in pairs(Character:GetDescendants()) do
+						if v:IsA("BasePart") then
+							v.Transparency = 1
+						end
+					end
+				end
+			end)
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.enableplayer()
+	if arguments[2] then
+		local target = findplr(arguments[2])
+		if target then
+			target.Character.Head.face.Transparency = 0
+			opx("-","Enabled "..target.Name)
+			for i,v in pairs(target.Character:GetDescendants()) do
+				if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+					v.Transparency = 0
+				end
+			end
+			for i,v in pairs(PDisabled) do
+				if target == PDisabled[i] then
+					table.remove(PDisabled,i)
+				end
+			end
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.gotopart()
+	if arguments[2] then
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == getstring(2) then
+				opx("-","Teleported to part")
+				cmdlp.Character.Humanoid.Jump = true
+				cmdlp.Character.HumanoidRootPart.CFrame = v.CFrame
+				break
+			end
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.clientbringpart()
+	if arguments[2] then
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == getstring(2) then
+				opx("-","Brought part")
+				v.CFrame = cmdlp.Character.HumanoidRootPart.CFrame
+				break
+			else
+				opx("*","Part does not exist")
+			end
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.clientdeletepart()
+	if arguments[2] then
+		local broke = false
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == getstring(2) then
+				v:Destroy()
+				broke = true
+				break
+			end
+		end
+		if not broke then
+			opx("*","Part does not exist")
+			return
+		end
+		opx("-","Deleted part")
+		return
+	end
+	opx("*","2 arguments are required!")
+end
+
+function useCommand.copyoutput()
+	if cmdnum(arguments[3]) then
+		local start = arguments[2]
+		local breaker = arguments[3]
+		setclipboard(output1.Text:sub(start,breaker))
+		opx("-","Copied latest output")
+	else
+		setclipboard(output1.Text)
+		opx("-","Copied latest output")
+	end
+end
+
+function useCommand.copypath()
+	if arguments[2] then
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == getstring(2) then
+				opx("-","Copied path of part")
+				setclipboard(v:GetFullName())
+				break
+			else
+				opx("*","Part does not exist")
+			end
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.outputbind()
+	if arguments[2] == "chat" then
+		ChatBind = true
+		updatesaves()
+		opx("-","Output switched to chat")
+	elseif arguments[2] == "default" then
+		ChatBind = false
+		updatesaves()
+		opx("-","Output switched to default")
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.clearwaves()
+	opx("-","Made all waves clear")
+	workspace.Terrain.WaterReflectance = 0
+	workspace.Terrain.WaterTransparency = 1
+	workspace.Terrain.WaterColor = Color3.fromRGB(255,255,255)
+end
+
+function useCommand.calmwaves()
+	opx("-","Made all waves calm")
+	workspace.Terrain.WaterWaveSize = 0
+	workspace.Terrain.WaterWaveSpeed = 10
+end
+
+function useCommand.fov()
+	if cmdnum(arguments[2]) then
+		workspace.Camera.FieldOfView = arguments[2]
+		opx("-","Set field of view to "..arguments[2])
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.volume()
+	if cmdnum(arguments[2]) then
+		opx("-","System Volume is now "..arguments[2])
+		UserSettings():GetService("UserGameSettings").MasterVolume = arguments[2]/100
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.graphics()
+	if cmdnum(arguments[2]) then
+		opx("-","System Graphics is now "..arguments[2])
+		settings().Rendering.QualityLevel = arguments[2]
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.mousesensitivity()
+	if cmdnum(arguments[2]) then
+		opx("-","Changed mouse sensitivity to "..arguments[2])
+		game:GetService("UserInputService").MouseDeltaSensitivity = arguments[2]
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.animspeed()
+	if arguments[2] then
+		opx("-","Sped up animations")
+		for i,v in pairs(cmdlp.Character.Humanoid:GetPlayingAnimationTracks()) do
+			v:AdjustSpeed(arguments[2])
+		end
+	else
+		opx("-","2 arguments are required!")
+	end
+end
+
+function useCommand.noprompt()
+	local PromptHandler = game:GetService("CoreGui").PurchasePromptApp.PurchasePromptUI
+	NoPrompt = true
+	opx("-","No prompt enabled")
+	PromptHandler.ChildAdded:Connect(function(AnnoyingRobuxGrabPromptHere) 
+		if NoPrompt == true then
+			AnnoyingRobuxGrabPromptHere:Destroy()
+		end 
+	end)
+end
+
+function useCommand.yesprompt()
+	opx("-","No prompt disabled")
+	NoPrompt = false
+end
+
+function useCommand.rappu()
+	if arguments[2] then
+		local target = findplr(arguments[2])
+		if target then
+			local URL = ("https://inventory.roblox.com/v1/users/"..target.UserId.."/assets/collectibles?sortOrder=Asc&limit=100")
+			local fuck = game:HttpGet(URL)
+			local Http = game:GetService("HttpService"):JSONDecode(fuck)
+			local RAP = 0
+			function ListItems(Look)
+				for i,v in pairs(Look.data) do
+					if v.recentAveragePrice ~= nil then
+						RAP = RAP+v.recentAveragePrice
+					end
+				end
+			end
+			ListItems(Http)
+			Pages = 1
+			for i = 1,500 do
+				if Http.nextPageCursor ~= null then
+					local fuck = game:HttpGet(URL.."&cursor="..Http.nextPageCursor)
+					Http = game:GetService("HttpService"):JSONDecode(fuck)
+					ListItems(Http)
+					Pages = Pages+1
+				else
+					cmdrs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(target.Name.." has "..RAP.."RAP, "..Pages.."pgs checked","All")
+					opx("-",target.Name.." has "..RAP.."RAP, "..Pages.."pgs checked")
+					break
+				end
+			end
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+function useCommand.rappr()
+	if arguments[2] then
+		local target = findplr(arguments[2])
+		if target then
+			local URL = ("https://inventory.roblox.com/v1/users/"..target.UserId.."/assets/collectibles?sortOrder=Asc&limit=100")
+			local fuck = game:HttpGet(URL)
+			local Http = game:GetService("HttpService"):JSONDecode(fuck)
+			local RAP = 0
+			function ListItems(Look)
+				for i,v in pairs(Look.data) do
+					if v.recentAveragePrice ~= nil then
+						RAP = RAP+v.recentAveragePrice
+					end
+				end
+			end
+			ListItems(Http)
+			Pages = 1
+			for i = 1,500 do
+				if Http.nextPageCursor ~= null then
+					local fuck = game:HttpGet(URL.."&cursor="..Http.nextPageCursor)
+					Http = game:GetService("HttpService"):JSONDecode(fuck)
+					ListItems(Http)
+					Pages = Pages+1
+				else
+					opx("-",target.Name.." has "..RAP.."RAP, "..Pages.."pgs checked")
+					break
+				end
+			end
+		else
+			opx("*","Player does not exist!")
+		end
+	else
+		opx("*","2 arguments are required!")
+	end
+end
+
+-- CTRL+F
+
+PGUI = {}
+function useCommand.noguis()
+	opx("-","No guis enabled")
+	for i,v in pairs(cmdlp.PlayerGui:GetDescendants()) do
+		if v:IsA("Frame") and v.Visible == true then
+			v.Visible = false
+			PGUI[#PGUI+1] = v
+		end
+	end
+end
+
+function useCommand.yesguis()
+	opx("-","No guis disabled")
+	for i,v in pairs(PGUI) do
+		v.Visible = true
+	end
+end
+
+GTS = {}
+function useCommand.guitruesight()
+	opx("-","Gui truesight enabled")
+	for i,v in pairs(cmdlp.PlayerGui:GetDescendants()) do
+		if v:IsA("Frame") and v.Visible == false then
+			v.Visible = true
+			GTS[#GTS+1] = v
+		end
+	end
+end
+
+function useCommand.unguitruesight()
+	opx("-","Gui truesight disabled")
+	for i,v in pairs(GTS) do
+		v.Visible = false
+	end
+end
+
+BGs = {}
+function useCommand.nobillboardguis()
+	opx("-","Turned off all billboardguis")
+	YesBgs = true
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("BillboardGui") or v:IsA("SurfaceGui") then
+			v.Enabled = false
+			BGs[#BGs+1] = v
+		end
+	end
+end
+
+function useCommand.yesbillboardguis()
+	opx("-","Turned on all billboardguis")
+	for i,v in pairs(BGs) do
+		v.Enabled = true
+	end
+end
+
+function useCommand.grippos()
+	if not cmdnum(arguments[4]) then
+		opx("*","4 arguments are required!")
+		return
+	end
+	local tool = cmdlp.Character:FindFirstChildOfClass("Tool")
+	tool.Parent = cmdlp.Backpack
+	tool.GripPos = Vector3.new(arguments[2],arguments[3],arguments[4])
+	tool.Parent = cmdlp.Character
+	opx("-","Set GripPos")
+end
+
+SWs = false
+function useCommand.shiftwalkspeed()
+	if cmdnum(arguments[2]) then
+		opx("-","Shift walkspeed enabled")
+		SWs = true
+		cmduis.InputBegan:Connect(function(input)
+			if SWs == true and cmduis:IsKeyDown(Enum.KeyCode.LeftShift) then
+				cmdlp.Character.Humanoid.WalkSpeed = arguments[2]
+			end
+		end)
+		cmdm.KeyUp:connect(function(key)
+			if SWs == true and key == "0" then
+				cmdlp.Character.Humanoid.WalkSpeed = 16
+			end
+		end)
+	else
+		opx("-","Shift walkspeed enabled")
+		SWs = true
+		cmduis.InputBegan:Connect(function(input)
+			if SWs == true and cmduis:IsKeyDown(Enum.KeyCode.LeftShift) then
+				cmdlp.Character.Humanoid.WalkSpeed = permwalkspeed
+			end
+		end)
+		cmdm.KeyUp:connect(function(key)
+			if SWs == true and key == "0" then
+				cmdlp.Character.Humanoid.WalkSpeed = 16
+			end
+		end)
+	end
+end
+
+function useCommand.unshiftwalkspeed()
+	opx("-","Shift walkspeed disabled")
+	SWs = false
+	cmdlp.Character.Humanoid.WalkSpeed = 16
+end
+
+function useCommand.noresult()
+	output1.Text = output2.Text
+	output2.Text = output3.Text
+	output3.Text = output4.Text
+	output4.Text = output5.Text
+	output5.Text = output6.Text
+	output6.Text = output7.Text
+	output7.Text = output8.Text
+	output8.Text = output9.Text
+end
+
+local bAe = Instance.new("Animation")
+bAe.AnimationId = "rbxassetid://259438880"
+local cAe = Instance.new("Animation")
+cAe.AnimationId = "rbxassetid://181526230"
+local dAe = Instance.new("Animation")
+dAe.AnimationId = "rbxassetid://33796059"
+function useCommand.retard()
+	if arguments[2] == "1" then
+		if btAe then btAe:Stop() end
+		if ctAe then ctAe:Stop() end
+		if dtAe then dtAe:Stop() end
+		btAe = cmdlp.Character.Humanoid:LoadAnimation(bAe)
+		btAe:Play(.1, 1, 1e3)
+	elseif arguments[2] == "2" then
+		if btAe then btAe:Stop() end
+		if ctAe then ctAe:Stop() end
+		if dtAe then dtAe:Stop() end
+		ctAe = cmdlp.Character.Humanoid:LoadAnimation(cAe)
+		ctAe:Play(.1, 1, 1)
+		dtAe = cmdlp.Character.Humanoid:LoadAnimation(dAe)
+		dtAe:Play(.1, 1, 1e8)
+	else
+		if btAe then btAe:Stop() end
+		if ctAe then ctAe:Stop() end
+		if dtAe then dtAe:Stop() end
+		btAe = cmdlp.Character.Humanoid:LoadAnimation(bAe)
+		btAe:Play(.1, 1, 1e3)
+		useCommand.spin()
+	end
+	opx("-","Now being a retard")
+end
+
+function useCommand.unretard()
+	if btAe then btAe:Stop() useCommand.unspin() end
+	if ctAe then ctAe:Stop() end
+	if dtAe then dtAe:Stop() end
+	opx("-","Stopped being a retard")
+end
+
+xAnchored = {}
+xOrig = {}
+
+function grabUnanchored(Model)
+	for i,part in pairs(Model:GetDescendants()) do
+		if part:IsA("BasePart" or "UnionOperation" or "Model") and part.Anchored == false and part:IsDescendantOf(cmdlp.Character) == false then
+			part.Massless = true
+			part.CanCollide = false
+			if part:FindFirstChildOfClass("BodyPosition") == nil then
+				local mover = Instance.new("BodyPosition", part)
+				table.insert(xAnchored, mover)
+				xOrig[#xOrig+1] = {pos = mover.Position, par = mover}
+				mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+			else
+				part.BodyPosition:Destroy()
+				local mover = Instance.new("BodyPosition", part)
+				table.insert(xAnchored, mover)
+				xOrig[#xOrig+1] = {pos = mover.Position, par = mover}
+				mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+			end
+		end
+	end
+end
+
+IHaveSimmed = false
+function useCommand.simulationradius()
+	sethiddenproperty = sethiddenproperty or set_hidden_prop
+	setsimulationradius = setsimulationradius or set_simulation_radius
+	if not sethiddenproperty then
+		opx("*","sethiddenproperty is not supported on your executor!")
+		return
+	end
+	IHaveSimmed = true
+	if setsimulationradius then
+		setsimulationradius(1e308,1/0)
+	else
+		sethiddenproperty(cmdlp,"MaximumSimulationRadius",1/0)
+		sethiddenproperty(cmdlp,"SimulationRadius",1e308)
+	end
+end
+
+IHaveGrabbed = false
+function useCommand.grabunanchored()
+	if not IHaveSimmed then
+		opx("*",".simulationradius is required!")
+		return
+	end
+	IHaveGrabbed = true
+	if arguments[2] then
+		opx("-","Updated anchored parts list from "..arguments[2])
+		for i,v in pairs(worksapce:GetDescendants()) do
+			if v.Name == arguments[2] then
+				UnanchoredPart = v.Name
+				break
+			end
+		end
+		grabUnanchored(UnanchoredPart)
+	else
+		opx("-","Updated anchored
